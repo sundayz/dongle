@@ -75,8 +75,8 @@ function options_logic()				-- OPTIONS
 		options_selected = 5
 	end
 	
-	if setting_fsaa > 4 then
-		setting_fsaa = 0
+	if mode.aa > 4 then
+		mode.aa = 0
 	end
 	
 	if options_selected == 1 then 			-- too many of these...
@@ -97,11 +97,11 @@ function options_logic()				-- OPTIONS
 
 		if key == 'return' then 
 			if options_selected == 1 then			-- FSAA
-				setting_fsaa = (setting_fsaa + 4)
+				mode.aa = (mode.aa + 4)
 			elseif options_selected == 2 then		-- Vsync
-				setting_vsync = not setting_vsync
+				mode.vsync = not mode.vsync
 			elseif options_selected == 3 then		-- Fullscreen
-				setting_fullscreen = not setting_fullscreen
+				mode.full = not mode.full
 			elseif options_selected == 4 then
 				update_settings()					-- Save
 			elseif options_selected == 5 then		-- Back
@@ -135,18 +135,18 @@ function draw_menu()
 end
 
 function draw_options()
-	if setting_fsaa == 0 then
+	if mode.aa == 0 then
 		love.graphics.print("Smooth graphics: Off", 70, 200) -- 0 FSAA or x4 FSAA
-	elseif setting_fsaa == 4 then
+	elseif mode.aa == 4 then
 		love.graphics.print("Smooth graphics: On", 70, 200)
 	end
 	
-	if setting_vsync == true then
+	if mode.vsync == true then
 		love.graphics.print("Vertical Sync: On", 70, 250) -- vsync on or off
 			else love.graphics.print("Vertical Sync: Off" , 70, 250)
 	end
 	
-	if setting_fullscreen == true then
+	if mode.full == true then
 		love.graphics.print("Fullscreen: Yes", 70, 300)
 			else love.graphics.print("Fullscreen: No", 70, 300)
 	end
