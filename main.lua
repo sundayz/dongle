@@ -13,9 +13,11 @@
 	require 'menu'
 	require 'ai'
 	require 'splash'
+  require 'TLfres'
 
 function love.load()
 	init_core()
+  update_settings()
 	init_ball()
 	init_p1()
 	init_p2()
@@ -76,6 +78,7 @@ end
 
 
 function love.draw()
+  TLfres.transform()
 	if state == 'splash' then
 		draw_splash()
 	end
@@ -115,6 +118,7 @@ function love.draw()
 		love.graphics.print("bspy: "..bspy, 500, 85)
 		love.graphics.print("state: "..tostring(state), 500, 105)
 	end
+   --TLfres.letterbox(4, 3)
 end
 
 

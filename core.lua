@@ -20,22 +20,27 @@ function init_core()
 	collisionsounds = {blip1, blip2}
 	
 	-- Define these at start.
-	setting_fullscreen = false
-	setting_fullscreentype = "normal"
-	setting_vsync = true
-	setting_fsaa = 0
-	
+  mode = {
+    w = 800,
+    h = 600,
+    full = false,
+    vsync = true,
+    aa = 0
+  }
+  
 	-- States: 'menu', 'game', 'credits', 'options'
 	menu_selected = 1
 	options_selected = 1
 	credits_selected = 1
-	
-	fsaastring = "Off"
-	vsyncstring = tostring(vsync)
-	aidiffstring = "Unavailable"
-	pcolourstring = "Unavailable"
+  
+  --[[
+    fsaastring = "Off"
+    vsyncstring = tostring(vsync)
+    aidiffstring = "Unavailable"
+    pcolourstring = "Unavailable"
+  --]]
 end
 
-function update_settings()	
-    love.window.setMode(800, 600, {fullscreen = setting_fullscreen, fullscreentype = setting_fullscreentype, vsync = setting_vsync, fsaa = setting_fsaa})
+function update_settings()
+  TLfres.setScreen(mode, 800, false, false)  -- mode, extent (800), centre (false), stretch
 end
