@@ -24,11 +24,11 @@ function love.load()
 	--init_ai()
 	init_splash()
 	
-	debugg = false
+	debugg = true
 	p1score = 0
 	p2score = 0
 	lasttouch = nil
-    TEsound.playLooping(music, "music") 
+  TEsound.playLooping(music, "music") 
 end
 
 
@@ -40,7 +40,7 @@ function love.update(dt)
 	end
 	
 	if state == 'game' then
-	    TEsound.volume("music", 0) 
+	  TEsound.pause(music)
 		update_ball(dt)
 		ball_collision_top()
 		ball_collision_bot()
@@ -66,7 +66,15 @@ function love.update(dt)
 	if state == 'options' then
 		options_logic()
 	end
+  
+  if state == 'options_display' then
+    options_display_logic()
+  end
 	
+  if state == 'options_sound' then
+    options_sound_logic()
+  end
+  
 	if state == 'credits' then
 		credits_logic()
 	end
@@ -84,13 +92,13 @@ function love.draw()
 	end
 	
 	if state == 'menu' then
-		love.graphics.setFont(menufont)
+	--	love.graphics.setFont(menufont)
 		draw_menu()
 		draw_arrow()
 	end
 	
 	if state == 'game' then
-		love.graphics.setFont(gamefont)
+		--love.graphics.setFont(gamefont)
 		love.graphics.print("Player 1 score: "..p1score, 50, 550)
 		love.graphics.print("Player 2 score: "..p2score, 550, 550)
 		draw_ball()
@@ -100,10 +108,19 @@ function love.draw()
 	end
 	
 	if state == 'options' then
-		love.graphics.setFont(menufont)
 		draw_options()
 		draw_arrow()
 	end
+  
+  if state == 'options_display' then
+    draw_options_display()
+    draw_arrow()
+  end
+  
+  if state == 'options_sound' then
+    draw_options_sound()
+    draw_arrow()
+  end
 	
 	if state == 'credits' then
 		draw_credits()
@@ -112,7 +129,7 @@ function love.draw()
 	
 	if debugg == true then		-- For debugging.
 		love.graphics.print("Debug", 500, 5)
-		love.graphics.print("fps: "..tostring(fps), 500, 25)
+		love.graphics.print("fps: "..(fps), 500, 25)
 		love.graphics.print("dt: "..delta, 500, 45) -- time since last frame.
 		love.graphics.print("bspx: "..bspx, 500, 65)
 		love.graphics.print("bspy: "..bspy, 500, 85)

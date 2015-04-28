@@ -1,7 +1,7 @@
 function init_core()
 	-- Fonts
 	menufont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24) --  .ttf, size
-	gamefont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24)
+	-- gamefont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24)
 	
 	-- Graphics
 	love.graphics.setBackgroundColor(0, 0, 0) -- R, G, B
@@ -29,9 +29,13 @@ function init_core()
   }
   
 	-- States: 'menu', 'game', 'credits', 'options'
-	menu_selected = 1
-	options_selected = 1
-	credits_selected = 1
+  states = {
+    menu_selected = 1,
+    options_selected = 1,
+    credits_selected = 1,
+    options_display_selected = 1,
+    options_sound_selected = 1
+    }
   
   --[[
     fsaastring = "Off"
