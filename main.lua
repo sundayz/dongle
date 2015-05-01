@@ -16,18 +16,18 @@
   require 'TLfres'
 
 function love.load()
-	init_core()
-  update_settings()
-	init_ball()
-	init_p1()
-	init_p2()
-	--init_ai()
-	init_splash()
+	init_core()                                           -- Variables and stuff
+  update_settings()                                 -- load the settings, set resolution, etc
+	init_ball()                                            -- variables for the ball, such as velocity, position, etc
+	init_p1()                                             -- variables for player 1
+	init_p2()                                             -- variables for player 2
+	--init_ai()                                           -- variables for AI [UNUSED]
+	init_splash()                                        -- play splash sequence
 	
-	debugg = true
+	debugg = true                                     -- enables debugging info display
 	p1score = 0
 	p2score = 0
-	lasttouch = nil
+	lasttouch = nil                                     -- which player touched the ball last?
   TEsound.playLooping(music, "music") 
 end
 
@@ -42,12 +42,12 @@ function love.update(dt)
 	if state == 'game' then
 	  TEsound.pause(music)
 		update_ball(dt)
-		ball_collision_top()
-		ball_collision_bot()
-		ball_collision_p1()
+		ball_collision_top()                       -- collision with the top of the screen
+		ball_collision_bot()                       -- collision with the bottom of the screen
+		ball_collision_p1()                        -- collision withj player 1
 		--ball_collision_ai()
-		ball_collision_p2()
-		ball_update_score()
+		ball_collision_p2()                        -- collision withj player 2
+		ball_update_score()                     -- keeps the score
 		update_p1(dt)
 		--update_ai(dt)
 		update_p2(dt)
@@ -135,7 +135,7 @@ function love.draw()
 		love.graphics.print("bspy: "..bspy, 500, 85)
 		love.graphics.print("state: "..tostring(state), 500, 105)
 	end
-   --TLfres.letterbox(4, 3)
+   --TLfres.letterbox(4, 3)     -- aspect ratio
 end
 
 
