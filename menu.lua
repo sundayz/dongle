@@ -208,7 +208,7 @@ function draw_credits()
 	love.graphics.print("Music by Patrick 'aceisclose' K.", 70, 275)
 	love.graphics.print("LOVE2D 0.9.1", 70, 315)
 	love.graphics.print("TEsound v1.3 by Ensayia & Taehl", 70, 335)
-	love.graphics.print("TLfresh by Taehl", 70, 355)
+	love.graphics.print("TLfres by Taehl", 70, 355)
 	love.graphics.draw(plogo, 178, 28)
 	
 	
