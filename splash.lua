@@ -10,6 +10,15 @@ function init_splash()
 end
 
 function update_splash(dt)
+  function love.keypressed(key)
+    if key then
+      TEsound.stop("all")
+      introprogress = 0
+      state = 'menu'
+      restore_alpha()
+    end
+  end
+  
 	if introprogress < introduration + blackafterintro then
 		introprogress = (introprogress + dt)
 		if introprogress > introduration + blackafterintro then
@@ -27,7 +36,7 @@ function update_splash(dt)
 	end
 end
 
-function draw_splash()
+function draw_splash()  
 	if introprogress >= 0 and introprogress < introduration then
 		local a = 255
 		if introprogress < introfadetime then
@@ -46,4 +55,8 @@ function draw_splash()
 			love.graphics.draw(plogo, 178, 281)
 		end
 	end
+end
+
+function restore_alpha()
+		love.graphics.setColor(255, 255, 255, 255)
 end
