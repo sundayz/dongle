@@ -167,7 +167,13 @@ function options_sound_logic()
   if states.options_sound_selected == 1 then
     ax = 55
 		ay = 560
-  end
+	elseif states.options_display_selected == 2 then
+		ax = 55
+		ay = 350
+	elseif states.options_display_selected == 3 then
+		ax = 55
+		ay = 560
+	end
   
   function love.keypressed(key)
     if key == 'return' then
@@ -179,69 +185,108 @@ function options_sound_logic()
   end
 end
 
+function options_language_logic()
+  if states.options_language_selected == 1 then
+    ax = 55
+		ay = 560
+	elseif states.options_language_selected == 2 then
+		ax = 55
+		ay = 350
+	elseif states.options_language_selected == 3 then
+		ax = 55
+		ay = 560
+	end
+  
+  function love.keypressed(key)
+    if key == 'left' then
+      if states.options_language_selected == 1 then
+        language = (languages[key] + 1)
+      end
+    end
+    
+    if key == 'right' then
+      if states.options_language_selected == 1 then
+        language = (languages[key] - 1)
+      end
+    end
+    
+    if key == 'return' then
+      local key = 0
+      TEsound.play(blip3)
+      if states.options_language_selected == 1 then
+        
+      elseif states.options_language_selected == 2 then
+        language = (languages[key] + 1)
+      end
+    end
+  end
+end
 
 --					//  START DRAWING STUFF  \\
 
 function draw_menu()
 	love.graphics.draw(dlogo, 150, 10)
-	love.graphics.print("Play", 70, 200)
-	love.graphics.print("Options", 70, 250)
-	love.graphics.print("Credits", 70, 300)
-	love.graphics.print("Quit", 70, 350)
+	love.graphics.print(languages[language].MENU_PLAY, 70, 200)
+	love.graphics.print(languages[language].MENU_OPTIONS, 70, 250)
+	love.graphics.print(languages[language].MENU_CREDITS, 70, 300)
+	love.graphics.print(languages[language].MENU_QUIT, 70, 350)
 end
 
 function draw_options()
-	love.graphics.print("Display", 70, 200)
-	love.graphics.print("Sound", 70, 250)
-	love.graphics.print("Back", 70, 560)
+	love.graphics.print(languages[language].OPTIONS_DISPLAY, 70, 200)
+	love.graphics.print(languages[language].OPTIONS_SOUND, 70, 250)
+	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 
 function draw_credits()		
-	love.graphics.print("Thank you to the following:", 70, 95)
-	love.graphics.print("zxbobxz", 70, 135)
-	love.graphics.print("Maurice", 70, 155)
-	love.graphics.print("Wagn", 70, 175)
-	love.graphics.print("Moonbear/Wai-man", 70, 195)
-	love.graphics.print("Archimaredes", 70, 215)
-	love.graphics.print("Costinteo", 70, 235)
-	love.graphics.print("Zeh Fernando for the font 'Perfect DOS'", 70, 255)
-	love.graphics.print("Music by Patrick 'aceisclose' K.", 70, 275)
-	love.graphics.print("LOVE2D 0.9.1", 70, 315)
-	love.graphics.print("TEsound v1.3 by Ensayia & Taehl", 70, 335)
-	love.graphics.print("TLfres by Taehl", 70, 355)
 	love.graphics.draw(plogo, 178, 28)
-	
-	
-	love.graphics.print("Back", 70, 560)
+	love.graphics.print(languages[language].CREDITS_1, 70, 95)
+	love.graphics.print(languages[language].CREDITS_2, 70, 135)
+	love.graphics.print(languages[language].CREDITS_3, 70, 155)
+	love.graphics.print(languages[language].CREDITS_4, 70, 175)
+	love.graphics.print(languages[language].CREDITS_5, 70, 195)
+	love.graphics.print(languages[language].CREDITS_6, 70, 215)
+	love.graphics.print(languages[language].CREDITS_7, 70, 235)
+	love.graphics.print(languages[language].CREDITS_8, 70, 255)
+	love.graphics.print(languages[language].CREDITS_9, 70, 275)
+	love.graphics.print(languages[language].CREDITS_10, 70, 315)
+	love.graphics.print(languages[language].CREDITS_11, 70, 335)
+	love.graphics.print(languages[language].CREDITS_12, 70, 355)
+	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 
 function draw_options_display()
   if mode.full == true then
-    love.graphics.print("Fullscreen: Yes", 70, 200)
-    else love.graphics.print("Fullscreen: No", 70, 200)
+    love.graphics.print(OPTIONS_FULLSCREEN_Y, 70, 200)
+    else love.graphics.print(OPTIONS_FULLSCREEN_N, 70, 200)
   end
 
   if mode.aa == 0 then
-    love.graphics.print("Smooth graphics: Off", 70, 300) -- 0 FSAA or x4 FSAA
+    love.graphics.print(OPTIONS_AA_N, 70, 300) -- 0 FSAA or x4 FSAA
   elseif mode.aa == 4 then
-    love.graphics.print("Smooth graphics: On", 70, 300)
+    love.graphics.print(OPTIONS_AA_Y, 70, 300)
   end
     
   if mode.vsync == true then
-    love.graphics.print("Vertical Sync: On", 70, 250) -- vsync on or off
-  else love.graphics.print("Vertical Sync: Off" , 70, 250)
+    love.graphics.print(OPTIONS_VSYNC_Y, 70, 250) -- vsync on or off
+  else love.graphics.print(OPTIONS_VSYNC_N , 70, 250)
   end
   
   if hint1 == true then
-    love.graphics.print("Only on supported graphics cards.", 325, 560)
+    love.graphics.print(languages[language].OPTIONS_HINT1, 325, 560)
   end
-
-  love.graphics.print("Apply", 70, 350)
-  love.graphics.print("Back", 70, 560)
+  love.graphics.print(languages[language].OPTIONS_APPLY, 70, 350)
+  love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 
 function draw_options_sound()
-	love.graphics.print("Back", 70, 560)
+	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
+end
+
+function draw_options_language()
+  love.graphics.print(languages[language].OPTIONS_LANGUAGE, 55, 200)
+  love.graphics.print(languages[language].OPTIONS_APPLY, 70, 350)
+	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 
 function draw_arrow()

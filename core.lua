@@ -18,6 +18,9 @@ function init_core()
 	music = love.sound.newSoundData('sfx/DENIAL.mp3')
 	
 	collisionsounds = {blip1, blip2}
+  
+  -- Language
+  language = 'enRO'
 	
 	-- Define these at start.
   mode = {
@@ -34,7 +37,8 @@ function init_core()
     options_selected = 1,
     credits_selected = 1,
     options_display_selected = 1,
-    options_sound_selected = 1
+    options_sound_selected = 1,
+    options_language_selected = 1
     }
   
   --[[

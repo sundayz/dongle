@@ -11,12 +11,15 @@
 	require 'core'
 	require 'TEsound'
 	require 'menu'
-	require 'ai'
+--	require 'ai'
+  require 'LanguageMgr'
 	require 'splash'
   require 'TLfres'
 
 function love.load()
+  init_languages()                                    -- Load language strings
 	init_core()                                           -- Variables and stuff
+  init_languages()                                    -- Languages
   update_settings()                                 -- load the settings, set resolution, etc
 	init_ball()                                            -- variables for the ball, such as velocity, position, etc
 	init_p1()                                             -- variables for player 1
@@ -78,9 +81,16 @@ function love.update(dt)
 	if state == 'credits' then
 		credits_logic()
 	end
+  
+  if state == 'options_language' then
+    options_language_logic()
+  end
 	
-	fps = 1 / dt -- Thanks to Bob!
-	delta = 1 + dt -- Make dt global
+  if debugg then
+    fps = 1 / dt -- Thanks to Bob!
+  else end
+  
+	delta = dt -- Make dt global
 	TEsound.cleanup()
 end
 
@@ -99,8 +109,8 @@ function love.draw()
 	
 	if state == 'game' then
 		--love.graphics.setFont(gamefont)
-		love.graphics.print("Player 1 score: "..p1score, 50, 550)
-		love.graphics.print("Player 2 score: "..p2score, 550, 550)
+		love.graphics.print(languages[language].P1_SCORE..p1score, 50, 550)
+		love.graphics.print(languages[language].P2_SCORE..p2score, 550, 550)
 		draw_ball()
 		draw_p1()
 		draw_p2()
@@ -126,13 +136,18 @@ function love.draw()
 		draw_credits()
 		draw_arrow()
 	end
+  
+  if state == 'options_language' then
+    draw_options_language()
+    draw_arrow()
+  end
 	
 	if debugg == true then		-- For debugging.
 		love.graphics.print("Debug", 500, 5)
 		love.graphics.print("fps: "..(fps), 500, 25)
-		love.graphics.print("dt: "..delta, 500, 45) -- time since last frame.
-		love.graphics.print("bspx: "..bspx, 500, 65)
-		love.graphics.print("bspy: "..bspy, 500, 85)
+		love.graphics.print("dt: "..delta, 500, 45)
+		love.graphics.print("Lang: "..language, 500, 65)
+		love.graphics.print("Res: "..mode.w.."x"..mode.h, 500, 85)
 		love.graphics.print("state: "..tostring(state), 500, 105)
 	end
    --TLfres.letterbox(4, 3)     -- aspect ratio
