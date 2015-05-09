@@ -20,7 +20,7 @@ function init_core()
 	collisionsounds = {blip1, blip2}
   
   -- Language
-  language = 'enRO'
+  language = 'enEN'
 	
 	-- Define these at start.
   mode = {
