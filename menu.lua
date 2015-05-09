@@ -57,7 +57,10 @@ function options_logic()				-- OPTIONS
 	elseif states.options_selected == 2 then
 		ax = 55
 		ay = 250
-  elseif states.options_selected == 3 then
+	elseif states.options_selected == 3 then
+		ax = 55
+		ay = 300
+  elseif states.options_selected == 4 then
     ax = 55
     ay = 560
 	end
@@ -75,18 +78,20 @@ function options_logic()				-- OPTIONS
       TEsound.play(blip3)
       if states.options_selected == 1 then
         state = 'options_display'
-      elseif states.options_selected == 2 then		-- Vsync
+      elseif states.options_selected == 2 then
         state = 'options_sound'
       elseif states.options_selected == 3 then
+        state = 'options_language'
+      elseif states.options_selected == 4 then
         state = 'menu'
       end
     end
   end
   
-  if states.options_selected > 3 then
+  if states.options_selected > 4 then
 		states.options_selected = 1
 	elseif states.options_selected < 1 then
-		states.options_selected = 3
+		states.options_selected = 4
 	end
 end
  
@@ -149,13 +154,13 @@ function options_display_logic()   -- DISPLAY OPTIONS
 		if key == 'return' then 
       TEsound.play(blip3)
 			if states.options_display_selected == 1 then			-- FSAA
-				mode.aa = (mode.aa + 4)
+				mode.full = not mode.full
 			elseif states.options_display_selected == 2 then		-- Vsync
 				mode.vsync = not mode.vsync
 			elseif states.options_display_selected == 3 then		-- Fullscreen
-				mode.full = not mode.full
-			elseif states.options_display_selected == 4 then
-				update_settings()					-- Save
+        mode.aa = (mode.aa + 4)
+			elseif states.options_display_selected == 4 then    -- Save
+				update_settings()
 			elseif states.options_display_selected == 5 then		-- Back
 				state = 'options'
 			end
@@ -198,6 +203,13 @@ function options_language_logic()
 	end
   
   function love.keypressed(key)
+    if key == 'up' then
+      states.options_language_selected = (states.options_language_selected + 1)
+    end
+    
+    if key == 'down' then
+      states.options_language_selected = (states.options_language_selected - 1)      
+    end
     if key == 'left' then
       if states.options_language_selected == 1 then
         language = (languages[key] + 1)
@@ -220,6 +232,12 @@ function options_language_logic()
       end
     end
   end
+  
+  if states.options_language_selected > 3 then
+		states.options_language_selected = 1
+	elseif states.options_language_selected < 1 then
+		states.options_language_selected = 3
+	end
 end
 
 --					//  START DRAWING STUFF  \\
@@ -235,6 +253,7 @@ end
 function draw_options()
 	love.graphics.print(languages[language].OPTIONS_DISPLAY, 70, 200)
 	love.graphics.print(languages[language].OPTIONS_SOUND, 70, 250)
+  love.graphics.print(languages[language].OPTIONS_LANGUAGE, 70, 300)
 	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 
@@ -257,19 +276,19 @@ end
 
 function draw_options_display()
   if mode.full == true then
-    love.graphics.print(OPTIONS_FULLSCREEN_Y, 70, 200)
-    else love.graphics.print(OPTIONS_FULLSCREEN_N, 70, 200)
+    love.graphics.print(languages[language].OPTIONS_FULLSCREEN_Y, 70, 200)
+    else love.graphics.print(languages[language].OPTIONS_FULLSCREEN_N, 70, 200)
   end
 
   if mode.aa == 0 then
-    love.graphics.print(OPTIONS_AA_N, 70, 300) -- 0 FSAA or x4 FSAA
+    love.graphics.print(languages[language].OPTIONS_AA_N, 70, 300) -- 0 FSAA or x4 FSAA
   elseif mode.aa == 4 then
-    love.graphics.print(OPTIONS_AA_Y, 70, 300)
+    love.graphics.print(languages[language].OPTIONS_AA_Y, 70, 300)
   end
     
   if mode.vsync == true then
-    love.graphics.print(OPTIONS_VSYNC_Y, 70, 250) -- vsync on or off
-  else love.graphics.print(OPTIONS_VSYNC_N , 70, 250)
+    love.graphics.print(languages[language].OPTIONS_VSYNC_Y, 70, 250) -- vsync on or off
+  else love.graphics.print(languages[language].OPTIONS_VSYNC_N , 70, 250)
   end
   
   if hint1 == true then
