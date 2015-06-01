@@ -18,30 +18,34 @@ function menu_logic()
 		playedintrosound = false
 	end
 
-function love.keypressed(key)
-		-- MAIN MENU
-		if key == 'up' then
-			states.menu_selected = (states.menu_selected - 1)
-      TEsound.play(blip3)
-		elseif key == 'down' then
-    	TEsound.play(blip3)
-			states.menu_selected = (states.menu_selected + 1)
-		end
-	
-		if key == 'return' then			-- Thanks Torin
-      TEsound.play(blip3)
-			if states.menu_selected == 1 then
-				state = 'game'
-				TEsound.stop("all")
-			elseif states.menu_selected == 2 then
-				state = 'options'
-			elseif states.menu_selected == 3 then
-				state = 'credits'
-			elseif states.menu_selected == 4 then
-				love.event.quit()         -- exit game code
-			end
-		end
-end
+  function love.keypressed(key)
+      -- MAIN MENU
+      if key == 'up' then
+        states.menu_selected = (states.menu_selected - 1)
+        TEsound.play(blip3)
+      elseif key == 'down' then
+        TEsound.play(blip3)
+        states.menu_selected = (states.menu_selected + 1)
+      end
+    
+      if key == 'return' then			-- Thanks Torin
+        TEsound.play(blip3)
+        if states.menu_selected == 1 then
+          state = 'game'
+          TEsound.stop("all")
+          print('Entered state '..state)
+        elseif states.menu_selected == 2 then
+          state = 'options'
+          print('Entered state '..state)
+        elseif states.menu_selected == 3 then
+          state = 'credits'
+          print('Entered state '..state)
+        elseif states.menu_selected == 4 then
+          print('Entered state '..state)
+          love.event.quit()         -- exit game code
+        end
+      end
+  end
 	
 	if states.menu_selected > 4 then
 		states.menu_selected = 1
@@ -203,32 +207,27 @@ function options_language_logic()
 	end
   
   function love.keypressed(key)
-    if key == 'up' then
-      states.options_language_selected = (states.options_language_selected + 1)
-    end
-    
-    if key == 'down' then
-      states.options_language_selected = (states.options_language_selected - 1)      
-    end
-    if key == 'left' then
-      if states.options_language_selected == 1 then
-        language = (languages[key] + 1)
-      end
-    end
-    
-    if key == 'right' then
-      if states.options_language_selected == 1 then
-        language = (languages[key] - 1)
-      end
-    end
-    
-    if key == 'return' then
-      local key = 0
+    if key == 'up' then     -- MENU NAVIGATION
       TEsound.play(blip3)
-      if states.options_language_selected == 1 then
-        
-      elseif states.options_language_selected == 2 then
-        language = (languages[key] + 1)
+      states.options_language_selected = (states.options_language_selected + 1)
+    elseif key == 'down' then     -- MENU NAVIGATION
+      TEsound.play(blip3)
+      states.options_language_selected = (states.options_language_selected - 1)
+    elseif key == 'left' then      
+      TEsound.play(blip3)
+      if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
+        language = languages[lang_indices[1]] + 1
+        print('Set language to '..language)  
+      end
+    elseif key == 'right' then
+      TEsound.play(blip3)
+      if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
+        language = languages[lang_indices[1]] + 1
+        print('Set language to '..language)
+      end
+    elseif key == 'return' then
+      TEsound.play(blip3)
+      if states.options_language_selected == 2 then
       end
     end
   end
@@ -303,8 +302,8 @@ function draw_options_sound()
 end
 
 function draw_options_language()
-  love.graphics.print(languages[language].OPTIONS_LANGUAGE, 55, 200)
-  love.graphics.print(languages[language].OPTIONS_APPLY, 70, 350)
+  love.graphics.print(options_language_name_selected[lang_indices[1]], 70, 180)
+  love.graphics.print(languages[language].OPTIONS_LANGUAGE, 70, 200)
 	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 

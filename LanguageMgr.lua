@@ -1,4 +1,12 @@
 function init_languages()
+   lang_indices = {}
+    lang_indices[1] = 'enEN'    -- KYLE BRUH
+    lang_indices[2] = 'enDE'
+    lang_indices[3] = 'enIE'
+    lang_indices[4] = 'enCY'
+    lang_indices[5] = 'enPL'
+    lang_indices[6] = 'enRO'
+  
   languages = {
     enEN = {
       MENU_PLAY = "Play",

@@ -6,9 +6,9 @@ function init_core()
 	-- Graphics
 	love.graphics.setBackgroundColor(0, 0, 0) -- R, G, B
 	logotest = love.graphics.newImage('gfx/test.png')
-	mlogo = love.graphics.newImage('gfx/mlogo.png')
-	dlogo = love.graphics.newImage('gfx/dlogo.png')
-	plogo = love.graphics.newImage('gfx/plogo.png')
+	mlogo = love.graphics.newImage('gfx/mlogo.png') -- unused
+	dlogo = love.graphics.newImage('gfx/dlogo.png') -- v1.3
+	plogo = love.graphics.newImage('gfx/plogo.png') -- banner
 	
 	-- Sound
 	blip1 = love.sound.newSoundData('sfx/blip1.ogg')	-- Game
@@ -20,7 +20,16 @@ function init_core()
 	collisionsounds = {blip1, blip2}
   
   -- Language
-  language = 'enEN'
+  language = lang_indices[1]
+  
+  options_language_name_selected = {
+    enEN = 'English',
+    enDE = 'Dutch',
+    enIE = 'Irish',
+    enCY = 'Welsh',
+    enPL = 'Polish',
+    enRO = 'Romanian'
+  }
 	
 	-- Define these at start.
   mode = {
@@ -39,7 +48,7 @@ function init_core()
     options_display_selected = 1,
     options_sound_selected = 1,
     options_language_selected = 1
-    }
+  }
   
   --[[
     fsaastring = "Off"

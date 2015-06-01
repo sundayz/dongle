@@ -19,7 +19,6 @@
 function love.load()
   init_languages()                                    -- Load language strings
 	init_core()                                           -- Variables and stuff
-  init_languages()                                    -- Languages
   update_settings()                                 -- load the settings, set resolution, etc
 	init_ball()                                            -- variables for the ball, such as velocity, position, etc
 	init_p1()                                             -- variables for player 1
@@ -47,9 +46,9 @@ function love.update(dt)
 		update_ball(dt)
 		ball_collision_top()                       -- collision with the top of the screen
 		ball_collision_bot()                       -- collision with the bottom of the screen
-		ball_collision_p1()                        -- collision withj player 1
+		ball_collision_p1()                        -- collision with player 1
 		--ball_collision_ai()
-		ball_collision_p2()                        -- collision withj player 2
+		ball_collision_p2()                        -- collision with player 2
 		ball_update_score()                     -- keeps the score
 		update_p1(dt)
 		--update_ai(dt)
@@ -146,7 +145,6 @@ function love.draw()
 		love.graphics.print("Debug", 500, 5)
 		love.graphics.print("fps: "..(fps), 500, 25)
 		love.graphics.print("dt: "..delta, 500, 45)
-		love.graphics.print("Lang: "..language, 500, 65)
 		love.graphics.print("Res: "..mode.w.."x"..mode.h, 500, 85)
 		love.graphics.print("state: "..tostring(state), 500, 105)
 	end
