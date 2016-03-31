@@ -197,11 +197,8 @@ end
 function options_language_logic()
   if states.options_language_selected == 1 then
     ax = 55
-		ay = 560
+		ay = 180
 	elseif states.options_language_selected == 2 then
-		ax = 55
-		ay = 350
-	elseif states.options_language_selected == 3 then
 		ax = 55
 		ay = 560
 	end
@@ -216,26 +213,31 @@ function options_language_logic()
     elseif key == 'left' then      
       TEsound.play(blip3)
       if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
-        language = languages[lang_indices[1]] + 1
-        print('Set language to '..language)  
+        if (language - 1) > 0 then
+          language = language - 1;
+          print('Set language to '..language)
+        end
       end
     elseif key == 'right' then
       TEsound.play(blip3)
       if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
-        language = languages[lang_indices[1]] + 1
-        print('Set language to '..language)
+        if (language + 1) < #languages then
+          language = language + 1;
+          print('Set language to '..language)
+        end
       end
     elseif key == 'return' then
       TEsound.play(blip3)
       if states.options_language_selected == 2 then
+        state = 'options';
       end
     end
   end
   
-  if states.options_language_selected > 3 then
+  if states.options_language_selected > 2 then
 		states.options_language_selected = 1
 	elseif states.options_language_selected < 1 then
-		states.options_language_selected = 3
+		states.options_language_selected = 2
 	end
 end
 
@@ -302,8 +304,8 @@ function draw_options_sound()
 end
 
 function draw_options_language()
-  love.graphics.print(options_language_name_selected[lang_indices[1]], 70, 180)
-  love.graphics.print(languages[language].OPTIONS_LANGUAGE, 70, 200)
+love.graphics.print(languages[language].OPTIONS_LANGUAGE .. ": ", 70, 180)
+  love.graphics.print(options_language_name_selected[language], 240, 180)
 	love.graphics.print(languages[language].OPTIONS_BACK, 70, 560)
 end
 

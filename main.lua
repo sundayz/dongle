@@ -1,6 +1,5 @@
 
 -- Welcome to DONGLE. Inspired by DONG.
--- Visit torin.org.uk for more.
 -- DEVELOPMENT VERSION
 -- SEE LICENSE.TXT
 
@@ -17,20 +16,20 @@
   require 'TLfres'
 
 function love.load()
-  init_languages()                                    -- Load language strings
-	init_core()                                           -- Variables and stuff
-  update_settings()                                 -- load the settings, set resolution, etc
-	init_ball()                                            -- variables for the ball, such as velocity, position, etc
-	init_p1()                                             -- variables for player 1
-	init_p2()                                             -- variables for player 2
-	--init_ai()                                           -- variables for AI [UNUSED]
-	init_splash()                                        -- play splash sequence
+  init_core()          -- Variables and stuff
+  init_languages()     -- Load language strings
+  update_settings()    -- load the settings, set resolution, etc
+	init_ball()          -- variables for the ball, such as velocity, position, etc
+	init_p1()            -- variables for player 1
+	init_p2()            -- variables for player 2
+	--init_ai()          -- variables for AI [UNUSED]
+	init_splash()        -- play splash sequence
 	
-	debugg = true                                     -- enables debugging info display
+	debugg = true        -- enables debugging info display
 	p1score = 0
 	p2score = 0
-	lasttouch = nil                                     -- which player touched the ball last?
-  TEsound.playLooping(music, "music") 
+	lasttouch = nil      -- which player touched the ball last?
+  -- TEsound.playLooping(music, "music") 
 end
 
 

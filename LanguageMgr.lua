@@ -1,14 +1,6 @@
 function init_languages()
-   lang_indices = {}
-    lang_indices[1] = 'enEN'    -- KYLE BRUH
-    lang_indices[2] = 'enDE'
-    lang_indices[3] = 'enIE'
-    lang_indices[4] = 'enCY'
-    lang_indices[5] = 'enPL'
-    lang_indices[6] = 'enRO'
-  
   languages = {
-    enEN = {
+    [1] = { -- enEN
       MENU_PLAY = "Play",
       MENU_OPTIONS = "Options",
       MENU_CREDITS = "Credits",
@@ -42,8 +34,7 @@ function init_languages()
       P1_SCORE = "Player 1 score:",
       P2_SCORE = "Player 2 score:"
     },
-    
-    enDE = {
+    [2] = { -- deDE
       MENU_PLAY = "Spelen",
       MENU_OPTIONS = "Opties",
       MENU_CREDITS = "Aftiteling",
@@ -76,9 +67,8 @@ function init_languages()
       CREDITS_12 = "TLfres by Taehl",
       P1_SCORE = "Speler 1 score:",
       P2_SCORE = "Speler 2 score:"
-    },
-    
-    enIE = {
+    },  
+    [3] = { -- gaGA
       MENU_PLAY = "Imirt",
       MENU_OPTIONS = "Roghanna",
       MENU_CREDITS = "",
@@ -112,8 +102,7 @@ function init_languages()
       P1_SCORE = "Imreoir 1 scór:",
       P2_SCORE = "Imreoir 2 scór:"
     },
-    
-    enCY = {
+    [4] = { -- cyCY
       MENU_PLAY = "Chwarae",
       MENU_OPTIONS = "Dewisiadau",
       MENU_CREDITS = "Credydau",
@@ -147,8 +136,7 @@ function init_languages()
       P1_SCORE = "Chwaraewr 1 sgôr:",
       P2_SCORE = "Chwaraewr 2 sgôr:"
     },
-    
-    enPL = {
+    [5] = { -- plPL
       MENU_PLAY = "Graj",
       MENU_OPTIONS = "Opcje",
       MENU_CREDITS = "Napisy",
@@ -182,8 +170,7 @@ function init_languages()
       P1_SCORE = "Punkty Gracza 1:",
       P2_SCORE = "Punkty Gracza 2:"
     },
-    
-    enRO = {
+    [6] = { -- roRO
       MENU_PLAY = "Joacă",
       MENU_OPTIONS = "Opțiuni",
       MENU_CREDITS = "Credite",
@@ -216,6 +203,6 @@ function init_languages()
       CREDITS_12 = "TLfres de Taehl",
       P1_SCORE = "Jucător 1 scor:",
       P2_SCORE = "Jucător 2 scor:"
-    },
-  }
+    };
+  };
 end

@@ -15,20 +15,20 @@ function init_core()
 	blip2 = love.sound.newSoundData('sfx/blip2.ogg')	-- Game
 	blip3 = love.sound.newSoundData('sfx/blip3.ogg') -- Menu
 	startup = love.sound.newSoundData('sfx/Startup.ogg')
-	music = love.sound.newSoundData('sfx/DENIAL.mp3')
+	-- music = love.sound.newSoundData('sfx/DENIAL.mp3')
 	
 	collisionsounds = {blip1, blip2}
   
   -- Language
-  language = lang_indices[1]
+  language = 1;
   
   options_language_name_selected = {
-    enEN = 'English',
-    enDE = 'Dutch',
-    enIE = 'Irish',
-    enCY = 'Welsh',
-    enPL = 'Polish',
-    enRO = 'Romanian'
+    [1] = 'English',
+    [2] = 'Dutch',
+    [3] = 'Irish',
+    [4] = 'Welsh',
+    [5] = 'Polish',
+    [6] = 'Romanian'
   }
 	
 	-- Define these at start.
@@ -50,6 +50,8 @@ function init_core()
     options_language_selected = 1
   }
   
+  local major, minor, revision = love.getVersion();
+  print(string.format("LUA VERSION: %s, LOVE2D VERSION: %s, GAME VERSION: %s", _VERSION, major..minor..revision, "1.4"));
   --[[
     fsaastring = "Off"
     vsyncstring = tostring(vsync)
