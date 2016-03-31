@@ -213,7 +213,7 @@ function options_language_logic()
     elseif key == 'left' then      
       TEsound.play(blip3)
       if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
-        if (language - 1) > 0 then
+        if (language - 1) >= 1 then
           language = language - 1;
           print('Set language to '..language)
         end
@@ -221,7 +221,7 @@ function options_language_logic()
     elseif key == 'right' then
       TEsound.play(blip3)
       if states.options_language_selected == 1 then   -- LANGUAGE SELECTION
-        if (language + 1) < #languages then
+        if (language + 1) <= #languages then
           language = language + 1;
           print('Set language to '..language)
         end
@@ -276,23 +276,23 @@ function draw_credits()
 end
 
 function draw_options_display()
-  if mode.full == true then
+  if mode.full then
     love.graphics.print(languages[language].OPTIONS_FULLSCREEN_Y, 70, 200)
     else love.graphics.print(languages[language].OPTIONS_FULLSCREEN_N, 70, 200)
   end
 
-  if mode.aa == 0 then
+  if mode.aa then
     love.graphics.print(languages[language].OPTIONS_AA_N, 70, 300) -- 0 FSAA or x4 FSAA
   elseif mode.aa == 4 then
     love.graphics.print(languages[language].OPTIONS_AA_Y, 70, 300)
   end
     
-  if mode.vsync == true then
+  if mode.vsync then
     love.graphics.print(languages[language].OPTIONS_VSYNC_Y, 70, 250) -- vsync on or off
   else love.graphics.print(languages[language].OPTIONS_VSYNC_N , 70, 250)
   end
   
-  if hint1 == true then
+  if hint1 then
     love.graphics.print(languages[language].OPTIONS_HINT1, 325, 560)
   end
   love.graphics.print(languages[language].OPTIONS_APPLY, 70, 350)

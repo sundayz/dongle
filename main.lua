@@ -16,7 +16,7 @@
   require 'TLfres'
 
 function love.load()
-  init_core()          -- Variables and stuff
+  -- init_core()          -- Variables and stuff
   init_languages()     -- Load language strings
   update_settings()    -- load the settings, set resolution, etc
 	init_ball()          -- variables for the ball, such as velocity, position, etc
@@ -24,8 +24,6 @@ function love.load()
 	init_p2()            -- variables for player 2
 	--init_ai()          -- variables for AI [UNUSED]
 	init_splash()        -- play splash sequence
-	
-	debugg = true        -- enables debugging info display
 	p1score = 0
 	p2score = 0
 	lasttouch = nil      -- which player touched the ball last?
@@ -84,7 +82,7 @@ function love.update(dt)
     options_language_logic()
   end
 	
-  if debugg then
+  if DONGLE.Debug then
     fps = 1 / dt -- Thanks to Bob!
   else end
   
@@ -140,12 +138,16 @@ function love.draw()
     draw_arrow()
   end
 	
-	if debugg == true then		-- For debugging.
-		love.graphics.print("Debug", 500, 5)
-		love.graphics.print("fps: "..(fps), 500, 25)
-		love.graphics.print("dt: "..delta, 500, 45)
-		love.graphics.print("Res: "..mode.w.."x"..mode.h, 500, 85)
-		love.graphics.print("state: "..tostring(state), 500, 105)
+	if DONGLE.Debug then		-- For debugging.
+    local info = [[
+    Debug
+    fps: %d
+    dt: %.4f
+    res: %dx%d
+    state: %s
+    mem: %.4f
+    ]];
+    love.graphics.print(string.format(info, fps, delta, mode.w, mode.h, tostring(state), collectgarbage('count')), 525, 5);
 	end
    --TLfres.letterbox(4, 3)     -- aspect ratio
 end

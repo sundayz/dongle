@@ -1,5 +1,8 @@
-function init_core()
-	-- Fonts
+DONGLE = {
+  VERSION = 1.4;
+  Debug = true;
+};
+  -- Fonts
 	menufont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24) --  .ttf, size
 	-- gamefont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24)
 	
@@ -51,14 +54,13 @@ function init_core()
   }
   
   local major, minor, revision = love.getVersion();
-  print(string.format("LUA VERSION: %s, LOVE2D VERSION: %s, GAME VERSION: %s", _VERSION, major..minor..revision, "1.4"));
+  print(string.format("LUA VERSION: %s, LOVE2D VERSION: %s, GAME VERSION: %d", _VERSION, major..minor..revision, DONGLE.VERSION));
   --[[
     fsaastring = "Off"
     vsyncstring = tostring(vsync)
     aidiffstring = "Unavailable"
     pcolourstring = "Unavailable"
   --]]
-end
 
 function update_settings()
   TLfres.setScreen(mode, 800, false, false)  -- mode, extent (800), centre (false), stretch
