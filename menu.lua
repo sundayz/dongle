@@ -192,20 +192,23 @@ end
 
 function menu.options_language_logic()
   if core.states.options_language_selected == 1 then
-    menu.ax = 55
-		menu.ay = 180
-	elseif core.states.options_language_selected == 2 then
-		menu.ax = 55
-		menu.ay = 560
+    menu.ax = 55;
+		menu.ay = 180;
+  elseif core.states.options_language_selected == 2 then
+    menu.ax = 55;
+    menu.ay = 520;
+	elseif core.states.options_language_selected == 3 then
+		menu.ax = 55;
+		menu.ay = 560;
 	end
   
   function love.keypressed(key)
     if key == 'up' then     -- MENU NAVIGATION
       TEsound.play(core.Sound.blip3)
-      core.states.options_language_selected = (core.states.options_language_selected + 1)
+      core.states.options_language_selected = (core.states.options_language_selected - 1);
     elseif key == 'down' then     -- MENU NAVIGATION
       TEsound.play(core.Sound.blip3)
-      core.states.options_language_selected = (core.states.options_language_selected - 1)
+      core.states.options_language_selected = (core.states.options_language_selected + 1);
     elseif key == 'left' then      
       TEsound.play(core.Sound.blip3)
       if core.states.options_language_selected == 1 then   -- LANGUAGE SELECTION
@@ -223,15 +226,17 @@ function menu.options_language_logic()
     elseif key == 'return' then
       TEsound.play(core.Sound.blip3)
       if core.states.options_language_selected == 2 then
+        love.system.openURL("http://sundays.org.uk/");
+      elseif core.states.options_language_selected == 3 then
         core.state = 'options';
       end
     end
   end
   
-  if core.states.options_language_selected > 2 then
+  if core.states.options_language_selected > 3 then
 		core.states.options_language_selected = 1
 	elseif core.states.options_language_selected < 1 then
-		core.states.options_language_selected = 2
+		core.states.options_language_selected = 3
 	end
 end
 
@@ -300,6 +305,7 @@ end
 function menu.draw_options_language()
   love.graphics.print(language[core.Language.language].OPTIONS_LANGUAGE .. ": ", 70, 180)
   love.graphics.print(core.Language.options_language_name_selected[core.Language.language], 240, 180)
+  love.graphics.print(language[core.Language.language].TRANSLATOR, 70, 520);
   love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 

@@ -27,14 +27,15 @@ local DONGLE = {
     -- music = love.sound.newSoundData('sfx/DENIAL.mp3'),
   },
   Language = {
-    language = 1;
+    language = 1; -- Default
     options_language_name_selected = {
       [1] = 'English',
-      [2] = 'Dutch',
-      [3] = 'Irish',
-      [4] = 'Welsh',
-      [5] = 'Polish',
-      [6] = 'Romanian';
+      [2] = 'English (US)',
+      [3] = 'Dutch',
+      [4] = 'Irish',
+      [5] = 'Welsh',
+      [6] = 'Polish',
+      [7] = 'Romanian';
     };
   },
   states = {
