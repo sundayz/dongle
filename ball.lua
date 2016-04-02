@@ -1,4 +1,6 @@
-local core = require 'core';
+local core    = require 'core';
+local player  = require 'player1';
+local player2 = require 'player2';
 
 local ball = {
   lasttouch = nil,
@@ -26,18 +28,18 @@ function ball.collision_bot()
 end
 
 function ball.collision_p1()
-  if (ball.x - 4) <= (p1x + p1width) and ball.y <= (p1y + p1height) then
-    if ball.y <= (p1y + 33) and ball.y > p1y then
+  if (ball.x - 4) <= (player.x + player.width) and ball.y <= (player.y + player.height) then
+    if ball.y <= (player.y + 33) and ball.y > player.y then
       ball.vy = -100;
       ball.vx = math.abs(ball.vx);
       TEsound.play({core.Sound.blip1, core.Sound.blip2}); -- Play sound.
       ball.lasttouch = 'p1'	 -- Used for score and other things.
-    elseif ball.y >= (p1y + 66) and ball.y > p1y and ball.y < (p1y + p1height) then
+    elseif ball.y >= (player.y + 66) and ball.y > player.y and ball.y < (player.y + player.height) then
       ball.vy = 100;
       ball.vx = math.abs(ball.vx);
       TEsound.play({core.Sound.blip1, core.Sound.blip2});
       ball.lasttouch = 'p1'
-    elseif ball.y <= (p1y + 65) and ball.y >= (p1y + 34) then
+    elseif ball.y <= (player.y + 65) and ball.y >= (player.y + 34) then
       ball.vx = math.abs(ball.vx)
       TEsound.play({core.Sound.blip1, core.Sound.blip2})
       ball.lasttouch = 'p1'
@@ -45,21 +47,21 @@ function ball.collision_p1()
     if ball.vx > 0 then ball.vx = ball.vx + 20 else ball.vx = ball.vx + 20 end
     if ball.vy > 0 then ball.vy = ball.vy + 20 else ball.vy = ball.vy - 20 end
   end
-end	
+end
 
 function ball.collision_p2()
-	if (ball.x + 4) >= p2x and ball.y <= (p2y + p2height) then
-		if ball.y <= (p2y + 33) and ball.y > p2y then
+	if (ball.x + 4) >= player2.x and ball.y <= (player2.y + player2.height) then
+		if ball.y <= (player2.y + 33) and ball.y > player2.y then
 			ball.vy = -100
 			ball.vx = -math.abs(ball.vx)		  -- Thanks, Maurce :(
 			TEsound.play({core.Sound.blip1, core.Sound.blip2}) -- Play sound.
 			ball.lasttouch = 'p2'	 -- Used for score and other things.
-		elseif ball.y >= (p2y + 66) and ball.y > p2y and ball.y < (p2y + p2height) then
+		elseif ball.y >= (player2.y + 66) and ball.y > player2.y and ball.y < (player2.y + player2.height) then
 			ball.vy = 100
 			ball.vx = -math.abs(ball.vx)
 			TEsound.play({core.Sound.blip1, core.Sound.blip2});
 			lasttouch = 'p2'
-		elseif ball.y <= (p2y + 65) and ball.y >= (p2y + 34) then
+		elseif ball.y <= (player2.y + 65) and ball.y >= (player2.y + 34) then
 			ball.vx = -math.abs(ball.vx)
 			TEsound.play({core.Sound.blip1, core.Sound.blip2});
 			ball.lasttouch = 'p2'
@@ -111,9 +113,10 @@ function ball.update_score()
       vx = 350,
       vy = -130;
     };
-    -- init_ai()
-    init_p2();
-    init_p1();
+    ball.x, ball.y       = 400, 300;
+    ball.vx, ball.vy     = 350, -130;
+    player.x, player.y   = 20, 250;
+    player2.x, player2.y = 765, 250; 
 	end
 end
 

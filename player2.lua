@@ -1,25 +1,27 @@
-function init_p2()
-	p2width = 15
-	p2height = 100
-	p2x = 765
-	p2y = 250
-	p2sp = 300
+local player2 = {
+  width = 15,
+  height = 100,
+  x = 765,
+  y = 250,
+  v = 300;
+};
+
+function player2.update(dt)
+  if love.keyboard.isDown('up') then
+    player2.y = player2.y - (player2.v * dt);
+  elseif love.keyboard.isDown('down') then
+    player2.y = player2.y + (player2.v * dt);
+  end
+
+  if player2.y < 0 then
+    player2.y = 0;
+  elseif player2.y + player2.height > 600 then
+    player2.y = 600 - player2.height;
+  end
 end
 
-function update_p2(dt)
-	if love.keyboard.isDown('up') then
-		p2y = p2y - (p1sp * dt)
-	elseif love.keyboard.isDown('down') then
-		p2y = p2y + (p2sp * dt)
-	end
-	
-	if p2y < 0 then
-		p2y = 0
-	elseif p2y + p2height > 600 then
-		p2y = 600 - p2height
-	end
+function player2.draw()
+  love.graphics.rectangle('fill', player2.x, player2.y, player2.width, player2.height);
 end
 
-function draw_p2()
-	love.graphics.rectangle('fill', p2x, p2y, 15, 100)
-end
+return player2;

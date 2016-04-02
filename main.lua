@@ -4,29 +4,24 @@
 -- SEE LICENSE.TXT
 
 require 'conf';
-local ball     = require 'ball';
-require 'player1';
-require 'player2';
-local core     = require 'core';
-require 'TEsound';
-require 'menu';
--- require 'ai'
-local language = require 'LanguageMgr';
-require 'splash';
 require 'TLfres';
+require 'TEsound';
+
+local ball     = require 'ball';
+local player   = require 'player1';
+local player2  = require 'player2';
+local core     = require 'core';
+local menu     = require 'menu';
+local language = require 'LanguageMgr';
+local splash   = require 'splash';
 
 function love.load()
-  -- init_core()          -- Variables and stuff
-  -- print(string.format("LUA VERSION: %s, LOVE2D VERSION: %d.%d.%d, GAME VERSION: %d", _VERSION, core.major .. core.minor .. core.revision, core.VERSION));
+  print(string.format("LUA VERSION: %s, LOVE2D VERSION: %d.%d.%d, GAME VERSION: %d", _VERSION, core.major, core.minor, core.revision, core.VERSION));
   core.update_settings()    -- load the settings, set resolution, etc
 	-- ball.init()          -- variables for the ball, such as velocity, position, etc
-	init_p1()            -- variables for player 1
-	init_p2()            -- variables for player 2
 	--init_ai()          -- variables for AI [UNUSED]
-	init_splash()        -- play splash sequence
 	p1score = 0
 	p2score = 0
-	lasttouch = nil      -- which player touched the ball last?
   -- TEsound.playLooping(music, "music") 
   local count = 0;
   for i,v in pairs(_G) do
@@ -39,52 +34,50 @@ end
 
 
 function love.update(dt)
-	if state == 'splash' then
-		update_splash(dt)
+	if core.state == 'splash' then
+		splash.update(dt)
 	end
 	
-	if state == 'game' then
+	if core.state == 'game' then
 	  TEsound.pause(music)
     ball.update(dt)
-		ball.collision_top()                       -- collision with the top of the screen
-		ball.collision_bot()                       -- collision with the bottom of the screen
-		ball.collision_p1()                        -- collision with player 1
-		-- ball.collision_ai()
-		ball.collision_p2()                        -- collision with player 2
-		ball.update_score()                        -- keeps the score
-		update_p1(dt)
-		--update_ai(dt)
-		update_p2(dt)
+		ball.collision_top();                       -- collision with the top of the screen
+		ball.collision_bot();                       -- collision with the bottom of the screen
+		ball.collision_p1();                        -- collision with player 1
+		ball.collision_p2();                        -- collision with player 2
+		ball.update_score();                        -- keeps the score
+		player.update(dt);
+		player2.update(dt);
 		function love.keypressed(key)
 			if key == 'escape' then
-				state = 'menu'
+				core.state = 'menu';
 				TEsound.stop("music")
 			end
 		end
 	end
 
-	if state == 'menu' then
-		menu_logic()
+	if core.state == 'menu' then
+		menu.menu_logic();
 	end
 	
-	if state == 'options' then
-		options_logic()
+	if core.state == 'options' then
+		menu.options_logic();
 	end
   
-  if state == 'options_display' then
-    options_display_logic()
+  if core.state == 'options_display' then
+    menu.options_display_logic();
   end
 	
-  if state == 'options_sound' then
-    options_sound_logic()
+  if core.state == 'options_sound' then
+    menu.options_sound_logic();
   end
   
-	if state == 'credits' then
-		credits_logic()
+	if core.state == 'credits' then
+		menu.credits_logic();
 	end
   
-  if state == 'options_language' then
-    options_language_logic()
+  if core.state == 'options_language' then
+    menu.options_language_logic();
   end
 	
   if core.Debug then
@@ -98,49 +91,49 @@ end
 
 function love.draw()
   TLfres.transform()
-	if state == 'splash' then
-		draw_splash()
+	if core.state == 'splash' then
+    splash.draw();
 	end
 	
-	if state == 'menu' then
+	if core.state == 'menu' then
 	--	love.graphics.setFont(menufont)
-		draw_menu()
-		draw_arrow()
+		menu.draw_menu()
+		menu.draw_arrow()
 	end
 	
-	if state == 'game' then
+	if core.state == 'game' then
 		--love.graphics.setFont(gamefont)
 		love.graphics.print(language[core.Language.language].P1_SCORE..p1score, 50, 550)
 		love.graphics.print(language[core.Language.language].P2_SCORE..p2score, 550, 550)
-		ball.draw()
-		draw_p1()
-		draw_p2()
+		ball.draw();
+    player.draw();
+    player2.draw();
 		--draw_ai()
 	end
 	
-	if state == 'options' then
-		draw_options()
-		draw_arrow()
+	if core.state == 'options' then
+		menu.draw_options();
+		menu.draw_arrow();
 	end
   
-  if state == 'options_display' then
-    draw_options_display()
-    draw_arrow()
+  if core.state == 'options_display' then
+    menu.draw_options_display();
+    menu.draw_arrow();
   end
   
-  if state == 'options_sound' then
-    draw_options_sound()
-    draw_arrow()
+  if core.state == 'options_sound' then
+    menu.draw_options_sound();
+    menu.draw_arrow();
   end
 	
-	if state == 'credits' then
-		draw_credits()
-		draw_arrow()
+	if core.state == 'credits' then
+		menu.draw_credits();
+		menu.draw_arrow();
 	end
   
-  if state == 'options_language' then
-    draw_options_language()
-    draw_arrow()
+  if core.state == 'options_language' then
+    menu.draw_options_language();
+    menu.draw_arrow();
   end
 	
 	if core.Debug then		-- For debugging.
@@ -150,9 +143,9 @@ function love.draw()
     dt: %.4f
     res: %dx%d
     state: %s
-    mem: %.4fKB
+    mem: %.2fKB
     ]];
-    love.graphics.print(string.format(info, fps, delta, core.Graphics.mode.w, core.Graphics.mode.h, tostring(state), collectgarbage('count')), 525, 5);
+    love.graphics.print(string.format(info, fps, delta, core.Graphics.mode.w, core.Graphics.mode.h, tostring(core.state), collectgarbage('count')), 525, 5);
 	end
    --TLfres.letterbox(4, 3)     -- aspect ratio
 end

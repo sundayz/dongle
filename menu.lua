@@ -1,24 +1,21 @@
 local core     = require 'core';
 local language = require 'LanguageMgr';
 
-function menu_logic()
+local menu = {};
+
+function menu.menu_logic()
 	if core.states.menu_selected == 1 then 			-- EHHHHHHHHHH
-		ax = 55
-		ay = 200
+		menu.ax = 55
+		menu.ay = 200
 	elseif core.states.menu_selected == 2 then
-		ax = 55
-		ay = 250
+		menu.ax = 55
+		menu.ay = 250
 	elseif core.states.menu_selected == 3 then
-		ax = 55
-		ay = 300
+		menu.ax = 55
+		menu.ay = 300
 	elseif core.states.menu_selected == 4 then
-		ax = 55
-		ay = 350
-	end
-  
-	if playedintrosound == true then
-		love.graphics.setColor(255, 255, 255, 255)
-		playedintrosound = false
+		menu.ax = 55
+		menu.ay = 350
 	end
 
   function love.keypressed(key)
@@ -34,17 +31,13 @@ function menu_logic()
       if key == 'return' then			-- Thanks Torin
         TEsound.play(core.Sound.blip3)
         if core.states.menu_selected == 1 then
-          state = 'game'
+          core.state = 'game'
           TEsound.stop("all")
-          print('Entered state '..state)
         elseif core.states.menu_selected == 2 then
-          state = 'options'
-          print('Entered state '..state)
+          core.state = 'options'
         elseif core.states.menu_selected == 3 then
-          state = 'credits'
-          print('Entered state '..state)
+          core.state = 'credits'
         elseif core.states.menu_selected == 4 then
-          print('Entered state '..state)
           love.event.quit()         -- exit game code
         end
       end
@@ -57,19 +50,19 @@ function menu_logic()
 	end
 end
 
-function options_logic()				-- OPTIONS
+function menu.options_logic()				-- OPTIONS
   if core.states.options_selected == 1 then
-    ax = 55
-    ay = 200
+    menu.ax = 55
+    menu.ay = 200
   elseif core.states.options_selected == 2 then
-    ax = 55
-		ay = 250
+    menu.ax = 55
+		menu.ay = 250
 	elseif core.states.options_selected == 3 then
-    ax = 55
-    ay = 300
+    menu.ax = 55
+    menu.ay = 300
   elseif core.states.options_selected == 4 then
-    ax = 55
-    ay = 560
+    menu.ax = 55
+    menu.ay = 560
   end
   
   function love.keypressed(key)  
@@ -84,13 +77,13 @@ function options_logic()				-- OPTIONS
     if key == 'return' then 
       TEsound.play(core.Sound.blip3)
       if core.states.options_selected == 1 then
-        state = 'options_display'
+        core.state = 'options_display'
       elseif core.states.options_selected == 2 then
-        state = 'options_sound'
+        core.state = 'options_sound'
       elseif core.states.options_selected == 3 then
-        state = 'options_language'
+        core.state = 'options_language'
       elseif core.states.options_selected == 4 then
-        state = 'menu'
+        core.state = 'menu'
       end
     end
   end
@@ -102,36 +95,36 @@ function options_logic()				-- OPTIONS
   end
 end
  
-function credits_logic()						-- CREDITS
+function menu.credits_logic()						-- CREDITS
   if core.states.credits_selected == 1 then
-    ax = 55
-    ay = 560
+    menu.ax = 55
+    menu.ay = 560
   end
 
   function love.keypressed(key)
     if key == 'return' and core.states.credits_selected == 1 then
       TEsound.play(core.Sound.blip3)
-      state = 'menu'
+      core.state = 'menu'
     end	
   end
 end
 
-function options_display_logic()   -- DISPLAY OPTIONS
+function menu.options_display_logic()   -- DISplay OPTIONS
 	if core.states.options_display_selected == 1 then
-		ax = 55
-		ay = 200
+		menu.ax = 55
+		menu.ay = 200
 	elseif core.states.options_display_selected == 2 then
-		ax = 55
-		ay = 250
+		menu.ax = 55
+		menu.ay = 250
 	elseif core.states.options_display_selected == 3 then
-		ax = 55
-		ay = 300
+		menu.ax = 55
+		menu.ay = 300
 	elseif core.states.options_display_selected == 4 then
-		ax = 55
-		ay = 350
+		menu.ax = 55
+		menu.ay = 350
 	elseif core.states.options_display_selected == 5 then
-		ax = 55
-		ay = 560
+		menu.ax = 55
+		menu.ay = 560
 	end
 	
 	if core.states.options_display_selected > 5 then
@@ -169,41 +162,41 @@ function options_display_logic()   -- DISPLAY OPTIONS
 			elseif core.states.options_display_selected == 4 then    -- Save
 				core.update_settings();
 			elseif core.states.options_display_selected == 5 then		-- Back
-				state = 'options';
+				core.state = 'options';
 			end
 		end
 	end
 end
 
-function options_sound_logic()
+function menu.options_sound_logic()
   if core.states.options_sound_selected == 1 then
-    ax = 55
-		ay = 560
-	elseif core.states.options_display_selected == 2 then
-		ax = 55
-		ay = 350
-	elseif core.states.options_display_selected == 3 then
-		ax = 55
-		ay = 560
+    menu.ax = 55
+		menu.ay = 560
+	elseif core.states.options_sound_selected == 2 then
+		menu.ax = 55
+		menu.ay = 350
+	elseif ccore.states.options_sound_selected == 3 then
+		menu.ax = 55
+		menu.ay = 560
 	end
   
   function love.keypressed(key)
     if key == 'return' then
       TEsound.play(core.Sound.blip3)
       if core.states.options_sound_selected == 1 then
-        state = 'options'
+        core.state = 'options'
       end
     end
   end
 end
 
-function options_language_logic()
+function menu.options_language_logic()
   if core.states.options_language_selected == 1 then
-    ax = 55
-		ay = 180
+    menu.ax = 55
+		menu.ay = 180
 	elseif core.states.options_language_selected == 2 then
-		ax = 55
-		ay = 560
+		menu.ax = 55
+		menu.ay = 560
 	end
   
   function love.keypressed(key)
@@ -230,7 +223,7 @@ function options_language_logic()
     elseif key == 'return' then
       TEsound.play(core.Sound.blip3)
       if core.states.options_language_selected == 2 then
-        state = 'options';
+        core.state = 'options';
       end
     end
   end
@@ -244,7 +237,7 @@ end
 
 --					//  START DRAWING STUFF  \\
 
-function draw_menu()
+function menu.draw_menu()
 	love.graphics.draw(core.Graphics.dlogo, 150, 10)
 	love.graphics.print(language[core.Language.language].MENU_PLAY, 70, 200)
 	love.graphics.print(language[core.Language.language].MENU_OPTIONS, 70, 250)
@@ -252,14 +245,14 @@ function draw_menu()
 	love.graphics.print(language[core.Language.language].MENU_QUIT, 70, 350)
 end
 
-function draw_options()
+function menu.draw_options()
 	love.graphics.print(language[core.Language.language].OPTIONS_DISPLAY, 70, 200)
 	love.graphics.print(language[core.Language.language].OPTIONS_SOUND, 70, 250)
   love.graphics.print(language[core.Language.language].OPTIONS_LANGUAGE, 70, 300)
 	love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 
-function draw_credits()		
+function menu.draw_credits()		
 	love.graphics.draw(core.Graphics.plogo, 178, 28)
 	love.graphics.print(language[core.Language.language].CREDITS_1, 70, 95)
 	love.graphics.print(language[core.Language.language].CREDITS_2, 70, 135)
@@ -276,7 +269,7 @@ function draw_credits()
 	love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 
-function draw_options_display()
+function menu.draw_options_display()
   if core.Graphics.mode.full then
     love.graphics.print(language[core.Language.language].OPTIONS_FULLSCREEN_Y, 70, 200)
     else love.graphics.print(language[core.Language.language].OPTIONS_FULLSCREEN_N, 70, 200)
@@ -300,16 +293,18 @@ function draw_options_display()
   love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 
-function draw_options_sound()
+function menu.draw_options_sound()
 	love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 
-function draw_options_language()
+function menu.draw_options_language()
   love.graphics.print(language[core.Language.language].OPTIONS_LANGUAGE .. ": ", 70, 180)
   love.graphics.print(core.Language.options_language_name_selected[core.Language.language], 240, 180)
   love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560)
 end
 
-function draw_arrow()
-  love.graphics.print(">", ax, ay)
+function menu.draw_arrow()
+  love.graphics.print(">", menu.ax, menu.ay)
 end
+
+return menu;

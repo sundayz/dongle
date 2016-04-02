@@ -45,8 +45,10 @@ local DONGLE = {
     options_sound_selected = 1,
     options_language_selected = 1;
   },
-  -- major, minor, revision = love.getVersion();
+  state = 'splash',
 };
+
+DONGLE.major, DONGLE.minor, DONGLE.revision = love.getVersion();
 
 function DONGLE.update_settings()
   print("Updating display.");
