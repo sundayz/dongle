@@ -153,11 +153,11 @@ function menu.options_display_logic()   -- DISplay OPTIONS
 
 		if key == 'return' then 
       TEsound.play(core.Sound.blip3)
-			if core.states.options_display_selected == 1 then			-- FSAA
+			if core.states.options_display_selected == 1 then
 				core.Graphics.mode.full = not core.Graphics.mode.full;
-			elseif core.states.options_display_selected == 2 then		-- Vsync
+			elseif core.states.options_display_selected == 2 then
 				core.Graphics.mode.vsync = not core.Graphics.mode.vsync;
-			elseif core.states.options_display_selected == 3 then		-- Fullscreen
+			elseif core.states.options_display_selected == 3 then	
         core.Graphics.mode.aa = (core.Graphics.mode.aa + 4);
 			elseif core.states.options_display_selected == 4 then    -- Save
 				core.update_settings();
@@ -275,9 +275,9 @@ function menu.draw_options_display()
     else love.graphics.print(language[core.Language.language].OPTIONS_FULLSCREEN_N, 70, 200)
   end
 
-  if core.Graphics.mode.aa then
+  if core.Graphics.mode.aa ~= 4 then
     love.graphics.print(language[core.Language.language].OPTIONS_AA_N, 70, 300) -- 0 FSAA or x4 FSAA
-  elseif core.Graphics.mode.aa == 4 then
+  else
     love.graphics.print(language[core.Language.language].OPTIONS_AA_Y, 70, 300)
   end
     
