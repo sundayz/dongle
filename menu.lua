@@ -214,6 +214,8 @@ function menu.options_language_logic()
       if core.states.options_language_selected == 1 then   -- LANGUAGE SELECTION
         if (core.Language.language - 1) >= 1 then
           core.Language.language = core.Language.language - 1;
+        else
+          TEsound.play(core.Sound.invalid);
         end
       end
     elseif key == 'right' then
@@ -221,6 +223,8 @@ function menu.options_language_logic()
       if core.states.options_language_selected == 1 then   -- LANGUAGE SELECTION
         if (core.Language.language + 1) <= #language then
           core.Language.language = core.Language.language + 1;
+        else
+          TEsound.play(core.Sound.invalid);
         end
       end
     elseif key == 'return' then

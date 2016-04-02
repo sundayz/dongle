@@ -23,6 +23,7 @@ local DONGLE = {
     blip1   = love.sound.newSoundData('sfx/blip1.ogg'),	-- Game
     blip2   = love.sound.newSoundData('sfx/blip2.ogg'),	-- Game
     blip3   = love.sound.newSoundData('sfx/blip3.ogg'), -- Menu
+    invalid = love.sound.newSoundData('sfx/invalid.ogg');
     startup = love.sound.newSoundData('sfx/Startup.ogg');
     -- music = love.sound.newSoundData('sfx/DENIAL.mp3'),
   },
