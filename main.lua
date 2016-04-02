@@ -3,17 +3,17 @@
 -- DEVELOPMENT VERSION
 -- SEE LICENSE.TXT
 
-	require 'conf'
-	require 'ball'
-	require 'player1'
-	require 'player2'
-	require 'core'
-	require 'TEsound'
-	require 'menu'
---	require 'ai'
-  require 'LanguageMgr'
-	require 'splash'
-  require 'TLfres'
+require 'conf';
+local ball = require 'ball';
+require 'player1';
+require 'player2';
+require 'core';
+require 'TEsound';
+require 'menu';
+-- require 'ai'
+require 'LanguageMgr';
+require 'splash';
+require 'TLfres';
 
 function love.load()
   -- init_core()          -- Variables and stuff
@@ -40,12 +40,16 @@ function love.update(dt)
 	
 	if state == 'game' then
 	  TEsound.pause(music)
-		update_ball(dt)
+    
+		--[[
+    update_ball(dt)
 		ball_collision_top()                       -- collision with the top of the screen
 		ball_collision_bot()                       -- collision with the bottom of the screen
 		ball_collision_p1()                        -- collision with player 1
 		--ball_collision_ai()
 		ball_collision_p2()                        -- collision with player 2
+    --]]
+    for i, v in ipairs(ball) do
 		ball_update_score()                     -- keeps the score
 		update_p1(dt)
 		--update_ai(dt)
@@ -145,7 +149,7 @@ function love.draw()
     dt: %.4f
     res: %dx%d
     state: %s
-    mem: %.4f
+    mem: %.4fKB
     ]];
     love.graphics.print(string.format(info, fps, delta, mode.w, mode.h, tostring(state), collectgarbage('count')), 525, 5);
 	end

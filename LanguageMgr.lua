@@ -76,7 +76,7 @@ function init_languages()
       MENU_MULTIPLAYER = "Multiplayer",
       OPTIONS_DISPLAY = "Scáileán",
       OPTIONS_SOUND = "Fuaim",
-      OPTIONS_BACK = "",
+      OPTIONS_BACK = "Ar ais",
       OPTIONS_APPLY = "",
       OPTIONS_FULLSCREEN_Y = "Lánscáileáin: Tá",
       OPTIONS_FULLSCREEN_N = "Lánscáileáin: Níl",
