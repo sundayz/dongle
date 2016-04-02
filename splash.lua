@@ -1,3 +1,5 @@
+local core = require 'core';
+
 -- Thanks Maurice Guégan :)
 
 function init_splash()
@@ -26,7 +28,7 @@ function update_splash(dt)
 		end
 		
 		if introprogress > 0.5 and playedintrosound == nil then 
-			TEsound.play(startup)
+			TEsound.play(core.Sound.startup)
 			playedintrosound = true
 		end
 		
@@ -49,10 +51,10 @@ function draw_splash()
 		
 		if introprogress > introfadetime+0.3 and introprogress < introduration - introfadetime then
 --			love.graphics.draw(logotest, 400, 300, 0, 1, 1, 200, 150)
-			love.graphics.draw(plogo, 178, 281)
+			love.graphics.draw(core.Graphics.plogo, 178, 281)
 		else
 --			love.graphics.draw(logotest, 400, 300, 0, 1, 1, 200, 150)
-			love.graphics.draw(plogo, 178, 281)
+			love.graphics.draw(core.Graphics.plogo, 178, 281)
 		end
 	end
 end

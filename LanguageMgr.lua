@@ -1,5 +1,4 @@
-function init_languages()
-  languages = {
+local languages = {
     [1] = { -- enEN
       MENU_PLAY = "Play",
       MENU_OPTIONS = "Options",
@@ -205,4 +204,5 @@ function init_languages()
       P2_SCORE = "Jucător 2 scor:"
     };
   };
-end
+
+return languages;

@@ -4,22 +4,22 @@
 -- SEE LICENSE.TXT
 
 require 'conf';
-local ball = require 'ball';
+local ball     = require 'ball';
 require 'player1';
 require 'player2';
-require 'core';
+local core     = require 'core';
 require 'TEsound';
 require 'menu';
 -- require 'ai'
-require 'LanguageMgr';
+local language = require 'LanguageMgr';
 require 'splash';
 require 'TLfres';
 
 function love.load()
   -- init_core()          -- Variables and stuff
-  init_languages()     -- Load language strings
-  update_settings()    -- load the settings, set resolution, etc
-	init_ball()          -- variables for the ball, such as velocity, position, etc
+  -- print(string.format("LUA VERSION: %s, LOVE2D VERSION: %d.%d.%d, GAME VERSION: %d", _VERSION, core.major .. core.minor .. core.revision, core.VERSION));
+  core.update_settings()    -- load the settings, set resolution, etc
+	-- ball.init()          -- variables for the ball, such as velocity, position, etc
 	init_p1()            -- variables for player 1
 	init_p2()            -- variables for player 2
 	--init_ai()          -- variables for AI [UNUSED]
@@ -28,6 +28,11 @@ function love.load()
 	p2score = 0
 	lasttouch = nil      -- which player touched the ball last?
   -- TEsound.playLooping(music, "music") 
+  local count = 0;
+  for i,v in pairs(_G) do
+    count = count + 1;
+    print(count, i, v);
+  end
 end
 
 
@@ -40,17 +45,13 @@ function love.update(dt)
 	
 	if state == 'game' then
 	  TEsound.pause(music)
-    
-		--[[
-    update_ball(dt)
-		ball_collision_top()                       -- collision with the top of the screen
-		ball_collision_bot()                       -- collision with the bottom of the screen
-		ball_collision_p1()                        -- collision with player 1
-		--ball_collision_ai()
-		ball_collision_p2()                        -- collision with player 2
-    --]]
-    for i, v in ipairs(ball) do
-		ball_update_score()                     -- keeps the score
+    ball.update(dt)
+		ball.collision_top()                       -- collision with the top of the screen
+		ball.collision_bot()                       -- collision with the bottom of the screen
+		ball.collision_p1()                        -- collision with player 1
+		-- ball.collision_ai()
+		ball.collision_p2()                        -- collision with player 2
+		ball.update_score()                        -- keeps the score
 		update_p1(dt)
 		--update_ai(dt)
 		update_p2(dt)
@@ -86,7 +87,7 @@ function love.update(dt)
     options_language_logic()
   end
 	
-  if DONGLE.Debug then
+  if core.Debug then
     fps = 1 / dt -- Thanks to Bob!
   else end
   
@@ -109,9 +110,9 @@ function love.draw()
 	
 	if state == 'game' then
 		--love.graphics.setFont(gamefont)
-		love.graphics.print(languages[language].P1_SCORE..p1score, 50, 550)
-		love.graphics.print(languages[language].P2_SCORE..p2score, 550, 550)
-		draw_ball()
+		love.graphics.print(language[core.Language.language].P1_SCORE..p1score, 50, 550)
+		love.graphics.print(language[core.Language.language].P2_SCORE..p2score, 550, 550)
+		ball.draw()
 		draw_p1()
 		draw_p2()
 		--draw_ai()
@@ -142,7 +143,7 @@ function love.draw()
     draw_arrow()
   end
 	
-	if DONGLE.Debug then		-- For debugging.
+	if core.Debug then		-- For debugging.
     local info = [[
     Debug
     fps: %d
@@ -151,7 +152,7 @@ function love.draw()
     state: %s
     mem: %.4fKB
     ]];
-    love.graphics.print(string.format(info, fps, delta, mode.w, mode.h, tostring(state), collectgarbage('count')), 525, 5);
+    love.graphics.print(string.format(info, fps, delta, core.Graphics.mode.w, core.Graphics.mode.h, tostring(state), collectgarbage('count')), 525, 5);
 	end
    --TLfres.letterbox(4, 3)     -- aspect ratio
 end
