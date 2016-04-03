@@ -41,6 +41,8 @@ local DONGLE = {
   },
   states = {
     menu_selected = 1,
+    play_menu_selected = 1,
+    difficulty_menu_selected = 1,
     options_selected = 1,
     credits_selected = 1,
     options_display_selected = 1,

@@ -1,13 +1,14 @@
 local core    = require 'core';
 local player  = require 'player1';
 local player2 = require 'player2';
+local ai      = require 'ai';
 
 local ball = {
   lasttouch = nil,
   x = 400,
   y = 300,
-  vx = 350,
-  vy = -130;
+  vx = math.random(-325, -250),
+  vy = math.random(-130, 130);
 };
 
 function ball.collision_top()
@@ -69,7 +70,30 @@ function ball.collision_p2()
 		if ball.vx > 0 then ball.vx = ball.vx + 20 else ball.vx = ball.vx - 20 end
 		if ball.vy > 0 then ball.vy = ball.vy + 20 else ball.vy = ball.vy - 20 end
 	end
-end	
+end
+
+function ball.collision_ai()
+  local ai = ai or require 'ai';
+	if (ball.x + 4) >= ai.x and ball.y <= (ai.y + ai.height) then
+		if ball.y <= (ai.y + 33) and ball.y > ai.y then
+			ball.vy = -100
+			ball.vx = -math.abs(ball.vx)		  -- Thanks, Maurce :(
+			TEsound.play({core.Sound.blip1, core.Sound.blip2}) -- Play sound.
+			ball.lasttouch = 'p2'	 -- Used for score and other things.
+		elseif ball.y >= (ai.y + 66) and ball.y > ai.y and ball.y < (ai.y + ai.height) then
+			ball.vy = 100
+			ball.vx = -math.abs(ball.vx)
+			TEsound.play({core.Sound.blip1, core.Sound.blip2});
+			lasttouch = 'p2'
+		elseif ball.y <= (ai.y + 65) and ball.y >= (ai.y + 34) then
+			ball.vx = -math.abs(ball.vx)
+			TEsound.play({core.Sound.blip1, core.Sound.blip2});
+			ball.lasttouch = 'p2'
+		end
+		if ball.vx > 0 then ball.vx = ball.vx + 20 else ball.vx = ball.vx - 20 end
+		if ball.vy > 0 then ball.vy = ball.vy + 20 else ball.vy = ball.vy - 20 end
+	end
+end
 
 --[[
 function ball.collision_ai()	
@@ -106,17 +130,11 @@ function ball.update_score()
 		elseif ball.lasttouch == 'p2' then
 			p2score = (p2score + 1);
 		end
-    ball = {
-      lasttouch = nil,
-      x = 400,
-      y = 300,
-      vx = 350,
-      vy = -130;
-    };
-    ball.x, ball.y       = 400, 300;
-    ball.vx, ball.vy     = 350, -130;
-    player.x, player.y   = 20, 250;
-    player2.x, player2.y = 765, 250; 
+    ball.x, ball.y        = 400, 300;
+    ball.vx, ball.vy      = math.random(-325, -250), math.random(-130, 130);
+    player.x, player.y    = 20, 250;
+    player2.x, player2.y  = 765, 250;
+    ai.x, ai.y, ai.target = 765, 250, 0;
 	end
 end
 
@@ -124,4 +142,4 @@ function ball.draw()
 	love.graphics.circle("fill", ball.x, ball.y, 7, 100) -- Origin is in the middle. Diameter is 7. Radius is 3.5
 end
 
-return ball
+return ball;

@@ -2,6 +2,8 @@ local core     = require 'core';
 local language = require 'LanguageMgr';
 
 local menu = {};
+-- Yeah, I did a really bad job of this and there's no going back.
+-- Enjoy the massive nested if/else statements.
 
 function menu.menu_logic()
 	if core.states.menu_selected == 1 then 			-- EHHHHHHHHHH
@@ -31,7 +33,7 @@ function menu.menu_logic()
       if key == 'return' then			-- Thanks Torin
         TEsound.play(core.Sound.blip3)
         if core.states.menu_selected == 1 then
-          core.state = 'game'
+          core.state = 'play_menu';
           TEsound.stop("all")
         elseif core.states.menu_selected == 2 then
           core.state = 'options'
@@ -244,6 +246,93 @@ function menu.options_language_logic()
 	end
 end
 
+function menu.play_menu_logic()
+  if core.states.play_menu_selected == 1 then
+    menu.ax = 55;
+		menu.ay = 200;
+  elseif core.states.play_menu_selected == 2 then
+    menu.ax = 55;
+    menu.ay = 250;
+	elseif core.states.play_menu_selected == 3 then
+		menu.ax = 55;
+		menu.ay = 300;
+  elseif core.states.play_menu_selected == 4 then
+    menu.ax = 55;
+    menu.ay = 560;
+	end
+  
+  function love.keypressed(key)
+    if key == 'up' then
+      TEsound.play(core.Sound.blip3);
+      core.states.play_menu_selected = core.states.play_menu_selected - 1;
+    elseif key == 'down' then
+      TEsound.play(core.Sound.blip3);
+			core.states.play_menu_selected = core.states.play_menu_selected + 1;
+		end
+    if key == 'return' then
+      TEsound.play(core.Sound.blip3);
+      if core.states.play_menu_selected == 1 then
+        core.state = 'difficulty_menu';
+      elseif core.states.play_menu_selected == 2 then
+        TEsound.play(core.Sound.invalid);
+      elseif core.states.play_menu_selected == 3 then
+        TEsound.play(core.Sound.invalid);
+      elseif core.states.play_menu_selected == 4 then
+        core.state = 'menu';
+      end
+    end
+  end
+  
+  if core.states.play_menu_selected > 4 then
+    core.states.play_menu_selected = 1;
+  elseif core.states.play_menu_selected < 1 then
+    core.states.play_menu_selected = 4;
+  end
+end
+
+function menu.difficulty_menu_logic()
+  if core.states.difficulty_menu_selected == 1 then
+    menu.ax = 55;
+		menu.ay = 200;
+  elseif core.states.difficulty_menu_selected == 2 then
+    menu.ax = 55;
+    menu.ay = 250;
+	elseif core.states.difficulty_menu_selected == 3 then
+		menu.ax = 55;
+		menu.ay = 300;
+  elseif core.states.difficulty_menu_selected == 4 then
+    menu.ax = 55;
+    menu.ay = 560;
+	end
+  
+  function love.keypressed(key)
+    if key == 'up' then
+      TEsound.play(core.Sound.blip3);
+      core.states.difficulty_menu_selected = core.states.difficulty_menu_selected - 1;
+    elseif key == 'down' then
+      TEsound.play(core.Sound.blip3);
+      core.states.difficulty_menu_selected = core.states.difficulty_menu_selected + 1;
+    end
+    if key == 'return' then
+      if core.states.difficulty_menu_selected == 1 then
+        core.state = 'game';
+      elseif core.states.difficulty_menu_selected == 2 then
+        core.state = 'game';
+      elseif core.states.difficulty_menu_selected == 3 then
+        core.state = 'game';
+      elseif core.states.difficulty_menu_selected == 4 then
+        core.state = 'play_menu';
+      end
+    end
+  end
+  
+  if core.states.difficulty_menu_selected > 4 then
+    core.states.difficulty_menu_selected = 1;
+  elseif core.states.difficulty_menu_selected < 1 then
+    core.states.difficulty_menu_selected = 4;
+  end
+end
+
 --					//  START DRAWING STUFF  \\
 
 function menu.draw_menu()
@@ -252,6 +341,21 @@ function menu.draw_menu()
 	love.graphics.print(language[core.Language.language].MENU_OPTIONS, 70, 250)
 	love.graphics.print(language[core.Language.language].MENU_CREDITS, 70, 300)
 	love.graphics.print(language[core.Language.language].MENU_QUIT, 70, 350)
+end
+
+function menu.draw_play_menu()
+  love.graphics.print(language[core.Language.language].PLAY_SINGLEPLAYER, 70, 200);
+  love.graphics.print(language[core.Language.language].PLAY_MULTIPLAYER, 70, 250);
+  love.graphics.print(language[core.Language.language].PLAY_ONLINE, 70, 300);
+  love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560);
+end
+
+function menu.draw_difficulty_menu()
+  love.graphics.print(language[core.Language.language].PLAY_DIFFICULTY, 70, 100);
+  love.graphics.print(language[core.Language.language].PLAY_EASY, 70, 200);
+  love.graphics.print(language[core.Language.language].PLAY_MEDIUM, 70, 250);
+  love.graphics.print(language[core.Language.language].PLAY_HARD, 70, 300);
+  love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560);
 end
 
 function menu.draw_options()

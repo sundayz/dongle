@@ -1,23 +1,47 @@
--- UNUSED
+local ai = {
+  width = 15,
+  height = 100,
+  x = 765,
+  y = 250,
+  ticker = 0,
+  target = 0;
+};
 
-function init_ai()
-	aiwidth = 15
-	aiheight = 100
-	aix = 765
-	aiy = 200
-	aisp = 300
+local function setspeed(y1, y2)
+  if y1 > y2 then
+    local speed = (y1 - y2);
+    if speed < 100 then
+      return speed * 2;
+    else
+      return speed;
+    end
+  elseif y1 < y2 then
+    local speed = (y2 - y1);
+    if speed < 100 then
+      return speed * 2;
+    else
+      return speed;
+    end
+  else -- y1 == y2
+    return 0;
+  end
 end
 
-function update_ai(dt)
-	aiy = by - 50
-
-	if aiy < 0 then
-		aiy = 0
-	elseif aiy + aiheight > 600 then
-		aiy = (600 - aiheight)
+function ai.update(dt)
+  if ai.y + (ai.height - math.random(25, 35)) < ai.target then
+    ai.y = ai.y + (setspeed(ai.y, ai.target) * dt);
+  else
+    ai.y = ai.y - (setspeed(ai.y, ai.target) * dt);
+  end
+	if ai.y < 0 then
+		ai.y = 0;
+	elseif ai.y + ai.height > 600 then
+		ai.y = (600 - ai.height);
 	end
 end
 
-function draw_ai()
-	love.graphics.rectangle('fill', aix, aiy, 15, 100)
+function ai.draw()
+	love.graphics.rectangle('fill', ai.x, ai.y, ai.width, ai.height);
 end
+
+return ai;

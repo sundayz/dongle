@@ -9,7 +9,8 @@ require 'TEsound';
 
 local ball     = require 'ball';
 local player   = require 'player1';
-local player2  = require 'player2';
+-- local player2  = require 'player2';
+local ai       = require 'ai';
 local core     = require 'core';
 local menu     = require 'menu';
 local language = require 'LanguageMgr';
@@ -18,8 +19,6 @@ local splash   = require 'splash';
 function love.load()
   print(string.format("LUA VERSION: %s, LOVE2D VERSION: %d.%d.%d, GAME VERSION: %d", _VERSION, core.major, core.minor, core.revision, core.VERSION));
   core.update_settings()    -- load the settings, set resolution, etc
-	-- ball.init()          -- variables for the ball, such as velocity, position, etc
-	--init_ai()          -- variables for AI [UNUSED]
 	p1score = 0
 	p2score = 0
   -- TEsound.playLooping(music, "music") 
@@ -39,15 +38,22 @@ function love.update(dt)
 	end
 	
 	if core.state == 'game' then
-	  TEsound.pause(music)
     ball.update(dt)
 		ball.collision_top();                       -- collision with the top of the screen
 		ball.collision_bot();                       -- collision with the bottom of the screen
 		ball.collision_p1();                        -- collision with player 1
 		ball.collision_p2();                        -- collision with player 2
+    ball.collision_ai();
 		ball.update_score();                        -- keeps the score
 		player.update(dt);
-		player2.update(dt);
+    if ai.ticker > 0.5 then
+      ai.target = ball.y;
+      ai.ticker = 0;
+    else
+      ai.ticker = ai.ticker + dt;
+    end
+		-- player2.update(dt);
+    ai.update(dt);
 		function love.keypressed(key)
 			if key == 'escape' then
 				core.state = 'menu';
@@ -59,6 +65,14 @@ function love.update(dt)
 	if core.state == 'menu' then
 		menu.menu_logic();
 	end
+  
+  if core.state == 'play_menu' then
+    menu.play_menu_logic();
+  end
+  
+  if core.state == 'difficulty_menu' then
+    menu.difficulty_menu_logic();
+  end
 	
 	if core.state == 'options' then
 		menu.options_logic();
@@ -100,6 +114,16 @@ function love.draw()
 		menu.draw_menu()
 		menu.draw_arrow()
 	end
+  
+  if core.state == 'play_menu' then
+    menu.draw_play_menu();
+    menu.draw_arrow();
+  end
+  
+  if core.state == 'difficulty_menu' then
+    menu.draw_difficulty_menu();
+    menu.draw_arrow();
+  end
 	
 	if core.state == 'game' then
 		--love.graphics.setFont(gamefont)
@@ -107,8 +131,8 @@ function love.draw()
 		love.graphics.print(language[core.Language.language].P2_SCORE..p2score, 550, 550)
 		ball.draw();
     player.draw();
-    player2.draw();
-		--draw_ai()
+    -- player2.draw();
+		ai.draw();
 	end
 	
 	if core.state == 'options' then
@@ -144,8 +168,10 @@ function love.draw()
     res: %dx%d
     state: %s
     mem: %.2fKB
+    ai: %.3f
+    ai.tar: %d
     ]];
-    love.graphics.print(string.format(info, fps, delta, core.Graphics.mode.w, core.Graphics.mode.h, tostring(core.state), collectgarbage('count')), 525, 5);
+    love.graphics.print(string.format(info, fps, delta, core.Graphics.mode.w, core.Graphics.mode.h, tostring(core.state), collectgarbage('count'), ai.ticker, ai.target), 525, 5);
 	end
    --TLfres.letterbox(4, 3)     -- aspect ratio
 end
