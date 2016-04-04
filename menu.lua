@@ -1,4 +1,5 @@
 local core     = require 'core';
+local ai       = require 'ai';
 local language = require 'LanguageMgr';
 
 local menu = {};
@@ -315,10 +316,13 @@ function menu.difficulty_menu_logic()
     end
     if key == 'return' then
       if core.states.difficulty_menu_selected == 1 then
+        ai.difficulty = 0.45;
         core.state = 'game';
       elseif core.states.difficulty_menu_selected == 2 then
+        ai.difficulty = 0.30;
         core.state = 'game';
       elseif core.states.difficulty_menu_selected == 3 then
+        ai.difficulty = 0.15;
         core.state = 'game';
       elseif core.states.difficulty_menu_selected == 4 then
         core.state = 'play_menu';

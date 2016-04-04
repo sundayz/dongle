@@ -4,23 +4,25 @@ local ai = {
   x = 765,
   y = 250,
   ticker = 0,
-  target = 0;
+  target = 0,
+  difficulty = 0.45;
 };
 
 local function setspeed(y1, y2)
+  local rand = math.random(50, 100);
   if y1 > y2 then
-    local speed = (y1 - y2);
-    if speed < 100 then
-      return speed * 2;
-    else
-      return speed;
-    end
+    local diff = (y1 - y2);
+      if diff < 100 then
+        return 200 + rand;
+      else
+        return 250 + rand;
+      end
   elseif y1 < y2 then
-    local speed = (y2 - y1);
-    if speed < 100 then
-      return speed * 2;
+    local diff = (y2 - y1);
+    if diff < 100 then
+      return 200 + rand;
     else
-      return speed;
+      return 250 + rand;
     end
   else -- y1 == y2
     return 0;

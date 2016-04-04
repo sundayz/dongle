@@ -46,7 +46,7 @@ function love.update(dt)
     ball.collision_ai();
 		ball.update_score();                        -- keeps the score
 		player.update(dt);
-    if ai.ticker > 0.5 then
+    if ai.ticker > ai.difficulty then
       ai.target = ball.y;
       ai.ticker = 0;
     else
@@ -99,6 +99,10 @@ function love.update(dt)
   else end
   
 	delta = dt -- Make dt global
+  if dt < 1/144 then -- 144 fps cap
+    love.timer.sleep(1/144 - dt);
+  end
+  
 	TEsound.cleanup()
 end
 
