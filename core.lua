@@ -4,11 +4,11 @@ local DONGLE = {
   VERSION = 1.4,
   Debug = true,
   Graphics = {
-    love.graphics.setBackgroundColor(0, 0, 0), -- R, G, B
     logotest = love.graphics.newImage('gfx/test.png'),
-    mlogo = love.graphics.newImage('gfx/mlogo.png'), -- unused
-    dlogo = love.graphics.newImage('gfx/dlogo.png'), -- v1.3
-    plogo = love.graphics.newImage('gfx/plogo.png'), -- banner
+    mlogo    = love.graphics.newImage('gfx/mlogo.png'), -- unused
+    dlogo    = love.graphics.newImage('gfx/dlogo.png'), -- v1.3
+    plogo    = love.graphics.newImage('gfx/plogo.png'), -- banner
+    locked   = love.graphics.newImage('gfx/locked.png'),
     menufont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24), --  .ttf, size
 	  -- gamefont = love.graphics.setNewFont("gfx/PerfectDOS.ttf", 24)
     mode = {

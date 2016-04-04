@@ -348,6 +348,11 @@ function menu.draw_play_menu()
   love.graphics.print(language[core.Language.language].PLAY_MULTIPLAYER, 70, 250);
   love.graphics.print(language[core.Language.language].PLAY_ONLINE, 70, 300);
   love.graphics.print(language[core.Language.language].OPTIONS_BACK, 70, 560);
+  if core.states.play_menu_selected == 2 then
+    love.graphics.draw(core.Graphics.locked, 250, 250, 0, 0.5, 0.5);
+  elseif core.states.play_menu_selected == 3 then
+    love.graphics.draw(core.Graphics.locked, 250, 300, 0, 0.5, 0.5);
+  end
 end
 
 function menu.draw_difficulty_menu()
