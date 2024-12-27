@@ -101,7 +101,7 @@ end
 --- Cleans up finished sounds, freeing memory (highly recommended to go in love.update()). If not called, memory and channels won't be freed, and sounds won't loop.
 function TEsound.cleanup()
 	for k,v in ipairs(TEsound.channels) do
-		if v[1]:isStopped() then
+		if not v[1]:isPlaying() then
 			if v[2] then v[2](v[3]) end		-- allow sounds to use custom functions (primarily for looping, but be creative!)
 			table.remove(TEsound.channels, k)
 		end
