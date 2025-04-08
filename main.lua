@@ -4,8 +4,8 @@
 -- SEE LICENSE.TXT
 
 require 'conf';
-require 'TLfres';
-require 'TEsound';
+require 'lib.TLfres';
+require 'lib.TEsound';
 
 local ball     = require 'ball';
 local player   = require 'player1';

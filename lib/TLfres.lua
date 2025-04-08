@@ -10,7 +10,7 @@ function TLfres.setScreen(m, extent, centered, stretch)
 	m,extent = m or {}, extent or 800
 	m.w,m.h,m.aa = m.w or 800, m.h or 600, m.aa or 0
 	-- local v = love.mouse.isVisible()	-- Fixes Love forgetting if mouse is visible upon changing res
-	lw.setMode(m.w,m.h, {fullscreen = m.full, vsync = m.vsync, fsaa = m.aa})
+	lw.setMode(m.w,m.h, {fullscreen = m.full, vsync = m.vsync, msaa = m.aa})
   --	love.mouse.setVisible(v)
 	
 	w, h = m.w>0 and m.w or lg.getWidth(), m.h>0 and m.h or lg.getHeight()

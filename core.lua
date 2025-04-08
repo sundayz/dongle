@@ -1,4 +1,4 @@
-require 'TLfres';
+require 'lib.TLfres';
 
 local DONGLE = {
   VERSION = 1.4,
